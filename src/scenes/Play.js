@@ -67,15 +67,41 @@ class Play extends Phaser.Scene {
 
         // do a collision check
 
+        if(this.checkCollision(this.player, this.blue)) {
+            //this.player.??? do animation of getting hit or flashing red who knows
+            this.playerHit(this.blue)
+        }
+
+        
+        if(this.checkCollision(this.player, this.purple)) {
+            //this.player.??? do animation of getting hit or flashing red who knows
+            this.playerHit(this.purple)
+        }
+
+        if(this.checkCollision(this.player, this.AA)) {
+            //this.player.??? do animation of getting hit or flashing red who knows
+            this.playerHit(this.AA)
+        }
+
+
         if (!this.gameOver) {
             //update everything under here
         }
 
     }
 
-    checkCollision(x, y) {
+    checkCollision(player, item) {
         // copy from prev assignment
         // or take inspo from golf in class assignment
+
+        if (player.x < item.x + item.width &&
+            player.x + player.width > item.x &&
+            player.y < item.y + item.height &&
+            player.height + player.y > item.y) {
+                return true
+            } else {
+                return false
+            }
     }
 
 

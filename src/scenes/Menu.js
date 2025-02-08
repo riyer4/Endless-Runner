@@ -8,7 +8,7 @@ class Menu extends Phaser.Scene {
         //sprite + image loading
         // ex) this.load.image('rocket', './assets/rocket.png')
 
-        this.load.image('100', './assets/100-paper.png')
+        this.load.image('AA', './assets/100-paper.png')
         this.load.image('blue', './assets/blue-slipper.png')
         this.load.image('purple', './assets/purple-slipper.png')
 
