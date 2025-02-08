@@ -27,6 +27,20 @@ class Play extends Phaser.Scene {
 
         // add the same stuff as the menu config layout
 
+        let scoreConfig = {
+            fontFamily: 'Courier',
+            fontSize: '35px',
+            backgroundColor: '#add8e6',
+            color: '#000',
+            allig: 'right',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+
+            fixedWidth: 0
+        }
+
         // check for if the game is over or not
 
         this.gameOver = false
