@@ -1,6 +1,6 @@
 class Menu extends Phaser.Scene {
     constructor () {
-        super('playScene')
+        super('menuScene')
     }
 
     preload() {
@@ -11,6 +11,14 @@ class Menu extends Phaser.Scene {
         this.load.image('AA', './assets/100-paper.png')
         this.load.image('blue', './assets/blue-slipper.png')
         this.load.image('purple', './assets/purple-slipper.png')
+        
+
+        this.load.spritesheet('player', './assets/player.png', {
+            frameWidth: 16,
+            frameHeight: 16,
+            startFrame: 0,
+            endFrame: 2
+        })
 
 
 
@@ -53,5 +61,11 @@ class Menu extends Phaser.Scene {
     update() {
 
         // put what happens when certain keys are pressed in this menu screen
+
+        if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+
+            this.scene.start('playScene')    
+          }
     }
+    
 }

@@ -7,16 +7,16 @@ class Play extends Phaser.Scene {
 
 
         //borders maybe
-        this.add.rectange(0, 0, game.config.width, game.config.width / 15, 0xFFFFFF).setOrigin(0, 0)
-        this.add.rectange(0, 0, game.config.width - game.config.width / 15, game.config.width, 0xFFFFFF).setOrigin(0, 0)
-        this.add.rectange(0, 0, game.config.width / 15, game.config.width, 0xFFFFFF).setOrigin(0, 0)
-        this.add.rectange(0, 0, game.config.width, game.config.width / 15, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(0, 0, game.config.width, game.config.width / 15, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(0, 0, game.config.width - game.config.width / 15, game.config.width, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(0, 0, game.config.width / 15, game.config.width, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(0, 0, game.config.width, game.config.width / 15, 0xFFFFFF).setOrigin(0, 0)
 
         // add all characters / sprites
 
         //main player (change the measurements later)
 
-        this.player = new Player(this.game.config.width/4, this.game.config.height, 'player').setOrigin(0, 0)
+        this.player = new Player(this, 200, 150, 'player', 0, 'up').setOrigin(0, 0)
 
         // slippers
 

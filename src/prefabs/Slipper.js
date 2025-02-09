@@ -4,4 +4,9 @@ class Slipper extends Phaser.GameObjects.Sprite{
 
         scene.add.existing(this)
     }
+
+    
+    reset() {
+        this.y = game.config.height
+    }
 }
