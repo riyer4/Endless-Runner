@@ -14,6 +14,20 @@ class Play extends Phaser.Scene {
 
         // add all characters / sprites
 
+        //main player (change the measurements later)
+
+        this.player = new Player(this.game.config.width/4, this.game.config.height, 'player').setOrigin(0, 0)
+
+        // slippers
+
+        this.blue = new Slipper(this.game.config.width/4, this.game.config.height, 'blue').setOrigin(0, 0)
+
+        this.purple = new Slipper(this.game.config.width/4, this.game.config.height, 'purple').setOrigin(0, 0)
+
+        // A plus's 
+
+        this.AA = new AA(this.game.config.width/4, this.game.config.height, 'AA').setOrigin(0, 0)
+
         //define the keys
 
         //keyFIRE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
@@ -80,12 +94,16 @@ class Play extends Phaser.Scene {
 
         if(this.checkCollision(this.player, this.AA)) {
             //this.player.??? do animation of getting hit or flashing red who knows
-            this.playerHit(this.AA)
+            this.playerGain(this.AA)
         }
 
 
         if (!this.gameOver) {
             //update everything under here
+            this.player.reset()
+            this.blue.reset()
+            this.purple.reset()
+            this.AA.reset()
         }
 
     }
