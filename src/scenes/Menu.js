@@ -29,6 +29,12 @@ class Menu extends Phaser.Scene {
         
         this.load.audio('gain', './assets/gain.mp3')
         this.load.audio('hit', './assets/hit.mp3')
+        this.load.audio('select', './assets/select.mp3')
+        this.load.audio('mode', './assets/mode.mp3')
+
+
+        this.load.audio('music', './assets/music.mp3')
+
 
 
     }
@@ -60,20 +66,55 @@ class Menu extends Phaser.Scene {
         this.add.text(game.config.width/2, game.config.height - 210, 'Click either <-> arrows', menuConfig).setOrigin(0.5)
 
 
+        //hs 
+
+        this.highscore = 0
+        let highscoreConfig = {
+            fontFamily: 'Courier',
+            fontSize: '20px',
+            backgroundColor: '#000',
+            color: '#fff',
+            allig: 'right',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+
+            fixedWidth: 0
+        }
+
+        this.highscoreLeft = this.add.text(0, 610, `Highscore: ${this.highscore}`, highscoreConfig)
+
+
         //keys
 
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
 
-
+        if (!this.sound.get('music')) {
+            let bgm = this.sound.add('music', { loop: true });
+            bgm.play();
+        }
+        
 
     }
 
     update() {
 
+        // hs mods 
+
+        this.highscoreLeft.text = `Highscore: ${localStorage.getItem('highscore')}` 
+        {
+            if (this.p1Score > localStorage.getItem('highscore')) {
+            localStorage.setItem('highscore', this.p1Score)
+            }  
+        }
+
         // put what happens when certain keys are pressed in this menu screen
 
         if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+
+            this.sound.play('mode')
 
             // easy mode
   
@@ -87,6 +128,8 @@ class Menu extends Phaser.Scene {
         }
   
           if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+
+            this.sound.play('mode')
   
             // hard mode
   
