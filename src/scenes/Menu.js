@@ -8,6 +8,8 @@ class Menu extends Phaser.Scene {
         //sprite + image loading
         // ex) this.load.image('rocket', './assets/rocket.png')
 
+        this.load.image('mainScreen', './assets/mainScreen.png')
+
         this.load.image('AA', './assets/100-paper.png')
         this.load.image('blue', './assets/blue-slipper.png')
         this.load.image('purple', './assets/purple-slipper.png')
@@ -31,13 +33,17 @@ class Menu extends Phaser.Scene {
     create() {
 
         //main screen
-        //ex) this.mainScreen = this.add.tilesprite(0, 0, 640, 480, 'mainScreen).setOrigin(0, 0)
+        this.mainScreen = this.add.image(0, 0, 'mainScreen').setOrigin(0, 0)
+
+        this.mainScreen.setScale(4)
+
+
 
         let menuConfig = {
             fontFamily: 'Times New Roman',
-            fontSize: '35px',
-            backgroundColor: '#add8e6',
-            color: '#000',
+            fontSize: '30px',
+            backgroundColor: '#000000',
+            color: '#00ff00',
             allig: 'right',
             padding: {
                 top: 5,
@@ -47,7 +53,7 @@ class Menu extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        this.add.text(game.config.width/2, game.config.height - 150, 'Welcome to wtvr this is', menuConfig).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height - 230, 'Click the <- arrow to start', menuConfig).setOrigin(0.5)
 
         //keys
 

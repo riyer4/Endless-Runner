@@ -1,69 +1,45 @@
-class Play extends Phaser.Scene {
+class Play2 extends Phaser.Scene {
     constructor () {
-        super('playScene')
-    }
-
-    preload() {
-
-        //sprite + image loading
-        // ex) this.load.image('rocket', './assets/rocket.png')
-
-        this.load.image('mainScreen', './assets/mainScreen.png')
-
-        this.load.image('AA', './assets/100-paper.png')
-        this.load.image('blue', './assets/blue-slipper.png')
-        this.load.image('purple', './assets/purple-slipper.png')
-        
-
-        this.load.spritesheet('player', './assets/player.png', {
-            frameWidth: 15.75,
-            frameHeight: 16,
-            startFrame: 0,
-            endFrame: 2
-        })
-
-
-
-
-        //audio loading
-        // ex) this.load.audio('sfx-select', './assets/sfx-select.wav')
-
     }
 
     create() {
 
-        //starting place
 
-        this.add.rectangle(0, 580, game.config.width, game.config.width / 10, 0xF000f0).setOrigin(0, 0)
-        
+        //borders maybe
+        this.add.rectangle(0, 0, game.config.width, game.config.width / 15, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(0, 0, game.config.width - game.config.width / 15, game.config.width, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(0, 0, game.config.width / 15, game.config.width, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(0, 0, game.config.width, game.config.width / 15, 0xFFFFFF).setOrigin(0, 0)
 
-        //mc
-        this.player = new Player(this, game.config.width/2, game.config.height/2 + 250, 'player', 1).setOrigin(0, 0)
+        // add all characters / sprites
 
-        this.player.setScale(3)
+        //main player (change the measurements later)
 
-        //slippers
+        this.player = new Player(this, 200, 150, 'player', 0, 'up').setOrigin(0, 0)
 
-        this.blue = new Slipper(this, 100, 100, 'blue', 20).setOrigin(0, 0)
+        // slippers
 
-        this.purple = new Slipper2(this, 200, 100, 'purple', 40).setOrigin(0, 0)
+        this.blue = new Slipper(this.game.config.width/4, this.game.config.height, 'blue').setOrigin(0, 0)
 
+        this.purple = new Slipper(this.game.config.width/4, this.game.config.height, 'purple').setOrigin(0, 0)
 
-        this.AA = new AA(this, 200, 200, 'AA', 50).setOrigin(0, 0)
+        // A plus's 
 
-        //keys
+        this.AA = new AA(this.game.config.width/4, this.game.config.height, 'AA').setOrigin(0, 0)
 
+        //define the keys
+
+        //keyFIRE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
+        //keyRESET = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
 
-
-        //score
-
-        this.p1Score = 0 //intializing the score
-
         // score stuff
 
-        
+        this.p1Score = 0 // score initialization
+
+        // add the same stuff as the menu config layout
+
         let scoreConfig = {
             fontFamily: 'Courier',
             fontSize: '35px',
@@ -78,43 +54,36 @@ class Play extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        this.scoreLeft = this.add.text(240, 20, this.p1Score, scoreConfig)
-
-        // game end
+        // check for if the game is over or not
 
         this.gameOver = false
-
-
 
     }
 
     update() {
 
-        this.player.update()
 
-        this.AA.update()
-        
-        this.blue.update()
-        this.purple.update()
+        //check input for restarting
+
+        // update bg tile position
+
+        // update all sprites and characters
 
         // do a collision check
 
         if(this.checkCollision(this.player, this.blue)) {
-            this.player.reset()
-            this.blue.reset()
+            //this.player.??? do animation of getting hit or flashing red who knows
             this.playerHit(this.blue)
         }
 
         
         if(this.checkCollision(this.player, this.purple)) {
-            this.player.reset()
-            this.purple.reset()
+            //this.player.??? do animation of getting hit or flashing red who knows
             this.playerHit(this.purple)
         }
 
         if(this.checkCollision(this.player, this.AA)) {
-            this.player.reset()
-            this.AA.reset()
+            //this.player.??? do animation of getting hit or flashing red who knows
             this.playerGain(this.AA)
         }
 
@@ -165,5 +134,6 @@ class Play extends Phaser.Scene {
         this.p1Score += item.points
         this.scoreLeft.text = this.p1Score
     }
+
 
 }

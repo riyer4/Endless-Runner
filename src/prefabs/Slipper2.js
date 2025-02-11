@@ -1,10 +1,10 @@
-class AA extends Phaser.GameObjects.Sprite{
+class Slipper2 extends Phaser.GameObjects.Sprite{
     constructor(scene, x, y, key, pointValue) {
         super(scene, x, y, key)
 
         scene.add.existing(this)
-        this.point = pointValue
-        this.moveSpeed = 5 // speedd
+        this.points = pointValue // to store point value
+        this.moveSpeed = 5 //speed
     }
 
     
