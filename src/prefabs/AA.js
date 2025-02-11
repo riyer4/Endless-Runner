@@ -21,6 +21,6 @@ class AA extends Phaser.GameObjects.Sprite{
 
     reset() {
         this.y = 0
-        this.x = 150
+        this.x = Phaser.Math.Between(30, 380)
     }
 }

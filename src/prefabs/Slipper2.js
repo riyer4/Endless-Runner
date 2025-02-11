@@ -5,6 +5,7 @@ class Slipper2 extends Phaser.GameObjects.Sprite{
         scene.add.existing(this)
         this.points = pointValue // to store point value
         this.moveSpeed = game.settings.slipper2Speed //speed
+        
     }
 
     
@@ -22,6 +23,6 @@ class Slipper2 extends Phaser.GameObjects.Sprite{
 
     reset() {
         this.y = 0
-        this.x = 200
+        this.x = Phaser.Math.Between(30, 380)
     }
 }

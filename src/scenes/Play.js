@@ -44,17 +44,25 @@ class Play extends Phaser.Scene {
 
         //slippers
 
-        this.blue = new Slipper(this, 100, 0, 'blue', 20).setOrigin(0, 0)
+        this.blue = new Slipper(this, 20, 50, 'blue', 20).setOrigin(0, 0)
+        this.blue2 = new Slipper(this, 280, 100, 'blue', 20).setOrigin(0, 0)
+        this.blue3 = new Slipper(this, 320, 0, 'blue', 20).setOrigin(0, 0)
 
-        this.purple = new Slipper2(this, 200, 100, 'purple', 40).setOrigin(0, 0)
+
+        this.purple = new Slipper2(this, 400, 0, 'purple', 40).setOrigin(0, 0)
+        this.purple2 = new Slipper2(this, 180, 50, 'purple', 40).setOrigin(0, 0)
 
 
-        this.AA = new AA(this, 200, 200, 'AA', 50).setOrigin(0, 0)
+
+        this.AA = new AA(this, 100, 50, 'AA', 30).setOrigin(0, 0)
+
 
         //keys
 
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
+        keyRESET = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
+        keyRESTART = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M)
 
 
         //score
@@ -91,11 +99,11 @@ class Play extends Phaser.Scene {
 
         // end of game
 
-        if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+        if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyRESET)) {
             this.scene.restart()
         }
 
-        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyRESTART)) {
             
             this.scene.start("menuScene")
         }
@@ -104,8 +112,14 @@ class Play extends Phaser.Scene {
 
         this.AA.update()
 
+
         this.blue.update()
+        this.blue2.update()
+        this.blue3.update()
+
         this.purple.update()
+        this.purple2.update()
+
 
         // do a collision check
 
@@ -115,6 +129,19 @@ class Play extends Phaser.Scene {
             this.damaged(this.blue)
         }
 
+        if(this.checkCollision(this.player, this.blue2)) {
+            this.blue2.update()
+            this.playerHit(this.blue2)
+            this.damaged(this.blue2)
+        }
+
+        if(this.checkCollision(this.player, this.blue3)) {
+            this.blue3.update()
+            this.playerHit(this.blue3)
+            this.damaged(this.blue3)
+        }
+
+
         
         if(this.checkCollision(this.player, this.purple)) {
             this.purple.update()
@@ -122,20 +149,33 @@ class Play extends Phaser.Scene {
             this.damaged(this.purple)
         }
 
+        if(this.checkCollision(this.player, this.purple2)) {
+            this.purple2.update()
+            this.playerHit(this.purple2)
+            this.damaged(this.purple2)
+        }
+
+
+
         if(this.checkCollision(this.player, this.AA)) {
             this.AA.update()
             this.playerGain(this.AA)
             this.goodGrades(this.AA)
         }
-        
 
 
         if (!this.gameOver) {
             //update everything under here
             this.player.reset()
             this.blue.update()
+            this.blue2.update()
+            this.blue3.update()
             this.purple.update()
+            this.purple2.update()
             this.AA.update()
+        } else {
+            this.player.moveSpeed = 0
+            this.player.setFrame(1)
         }
 
     }
@@ -160,7 +200,7 @@ class Play extends Phaser.Scene {
 
         setTimeout(() => {
             player.clearTint()
-        }, 20)
+        }, 100)
         
     }
 
@@ -176,6 +216,8 @@ class Play extends Phaser.Scene {
             return
         }
 
+        this.sound.play('hit', {rate: 1.5})
+
         slipper.reset()
         slipper.alpha = 1
     }
@@ -185,7 +227,7 @@ class Play extends Phaser.Scene {
 
         setTimeout(() => {
             player.clearTint()
-        }, 20)
+        }, 100)
     }
 
     goodGrades(hundred) {
@@ -201,12 +243,19 @@ class Play extends Phaser.Scene {
             return
         }
 
+        this.sound.play('gain')
+
+
         hundred.reset()
         hundred.alpha = 1
     }
+    
 
     forGameOver() {
         this.gameOver = true
+
+        this.p1Score = 0
+        this.scoreLeft.text = this.p1Score
 
         let scoreConfig = {
             fontFamily: 'Courier',
@@ -224,7 +273,7 @@ class Play extends Phaser.Scene {
         
 
         this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5)
-        this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press -> to Restart or <- for Menu', scoreConfig).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5)
         
     }
 

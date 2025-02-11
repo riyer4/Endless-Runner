@@ -26,7 +26,10 @@ class Menu extends Phaser.Scene {
 
 
         //audio loading
-        // ex) this.load.audio('sfx-select', './assets/sfx-select.wav')
+        
+        this.load.audio('gain', './assets/gain.mp3')
+        this.load.audio('hit', './assets/hit.mp3')
+
 
     }
 
@@ -53,7 +56,9 @@ class Menu extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        this.add.text(game.config.width/2, game.config.height - 230, 'Click the <- arrow to start', menuConfig).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height - 255, '<- Easy Mode or Hard Mode ->', menuConfig).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height - 210, 'Click either <-> arrows', menuConfig).setOrigin(0.5)
+
 
         //keys
 

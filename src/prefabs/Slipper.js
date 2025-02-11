@@ -23,6 +23,6 @@ class Slipper extends Phaser.GameObjects.Sprite{
 
     reset() {
         this.y = 0
-        this.x = 100
+        this.x = Phaser.Math.Between(30, 380)
     }
 }
