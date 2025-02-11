@@ -26,6 +26,6 @@ class Player extends Phaser.GameObjects.Sprite{
     }
 
     reset() {
-        this.y = game.config.height/2 + 250
+        this.y = game.config.height/2 + 260
     }
 }

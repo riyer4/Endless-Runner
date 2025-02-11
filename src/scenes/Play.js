@@ -38,13 +38,13 @@ class Play extends Phaser.Scene {
         
 
         //mc
-        this.player = new Player(this, game.config.width/2, game.config.height/2 + 250, 'player', 1).setOrigin(0, 0)
+        this.player = new Player(this, game.config.width/2, game.config.height/2 + 260, 'player', 1).setOrigin(0, 0)
 
         this.player.setScale(3)
 
         //slippers
 
-        this.blue = new Slipper(this, 100, 100, 'blue', 20).setOrigin(0, 0)
+        this.blue = new Slipper(this, 100, 0, 'blue', 20).setOrigin(0, 0)
 
         this.purple = new Slipper2(this, 200, 100, 'purple', 40).setOrigin(0, 0)
 
@@ -80,8 +80,6 @@ class Play extends Phaser.Scene {
 
         this.scoreLeft = this.add.text(240, 20, this.p1Score, scoreConfig)
 
-        // game end
-
         this.gameOver = false
 
 
@@ -90,41 +88,54 @@ class Play extends Phaser.Scene {
 
     update() {
 
+
+        // end of game
+
+        if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+            this.scene.restart()
+        }
+
+        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+            
+            this.scene.start("menuScene")
+        }
+
         this.player.update()
 
         this.AA.update()
-        
+
         this.blue.update()
         this.purple.update()
 
         // do a collision check
 
         if(this.checkCollision(this.player, this.blue)) {
-            this.player.reset()
-            this.blue.reset()
+            this.blue.update()
             this.playerHit(this.blue)
+            this.damaged(this.blue)
         }
 
         
         if(this.checkCollision(this.player, this.purple)) {
-            this.player.reset()
-            this.purple.reset()
+            this.purple.update()
             this.playerHit(this.purple)
+            this.damaged(this.purple)
         }
 
         if(this.checkCollision(this.player, this.AA)) {
-            this.player.reset()
-            this.AA.reset()
+            this.AA.update()
             this.playerGain(this.AA)
+            this.goodGrades(this.AA)
         }
+        
 
 
         if (!this.gameOver) {
             //update everything under here
             this.player.reset()
-            this.blue.reset()
-            this.purple.reset()
-            this.AA.reset()
+            this.blue.update()
+            this.purple.update()
+            this.AA.update()
         }
 
     }
@@ -149,10 +160,24 @@ class Play extends Phaser.Scene {
 
         setTimeout(() => {
             player.clearTint()
-        }, 100)
+        }, 20)
+        
+    }
 
-        this.p1Score -= item.damage
+    damaged(slipper) {
+
+        slipper.alpha = 0
+
+        this.p1Score -= slipper.points
         this.scoreLeft.text = this.p1Score
+
+        if (this.p1Score < 0) {
+            this.forGameOver()
+            return
+        }
+
+        slipper.reset()
+        slipper.alpha = 1
     }
 
     playerGain(player) { 
@@ -160,10 +185,47 @@ class Play extends Phaser.Scene {
 
         setTimeout(() => {
             player.clearTint()
-        }, 100)
+        }, 20)
+    }
 
-        this.p1Score += item.points
+    goodGrades(hundred) {
+
+        hundred.alpha = 0
+        
+        this.p1Score += hundred.points
         this.scoreLeft.text = this.p1Score
+
+        
+        if (this.p1Score < 0) {
+            this.forGameOver()
+            return
+        }
+
+        hundred.reset()
+        hundred.alpha = 1
+    }
+
+    forGameOver() {
+        this.gameOver = true
+
+        let scoreConfig = {
+            fontFamily: 'Courier',
+            fontSize: '25px',
+            backgroundColor: '#add8e6',
+            color: '#000',
+            allig: 'right',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+
+            fixedWidth: 0
+        }
+        
+
+        this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press -> to Restart or <- for Menu', scoreConfig).setOrigin(0.5)
+        
     }
 
 }

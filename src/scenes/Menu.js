@@ -70,8 +70,29 @@ class Menu extends Phaser.Scene {
 
         if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
 
+            // easy mode
+  
+            game.settings = {
+              slipperSpeed: 2,
+              slipper2Speed: 2,
+              AAspeed: 2,
+            }
+            
             this.scene.start('playScene')    
-          }
+        }
+  
+          if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+  
+            // hard mode
+  
+            game.settings = {
+              slipperSpeed: 3,
+              slipper2Speed: 3,
+              AAspeed: 4,
+            }
+  
+            this.scene.start('playScene')    
+        }
     }
     
 }

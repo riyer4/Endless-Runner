@@ -3,18 +3,24 @@ class AA extends Phaser.GameObjects.Sprite{
         super(scene, x, y, key)
 
         scene.add.existing(this)
-        this.point = pointValue
-        this.moveSpeed = 5 // speedd
+        this.points = pointValue
+        this.moveSpeed = game.settings.AAspeed // speedd
     }
 
     
-    reset() {
-        this.y = game.config.height
+    update() {
+        this.y += this.moveSpeed
 
         //to wrap around the screen
 
-        if (this.y <= 0 - this.height) {
-            this.y = game.config.height
+        if (this.y >= 640) {
+            this.y = 0
+            this.x = Phaser.Math.Between(30, 380)
         }
+    }
+
+    reset() {
+        this.y = 0
+        this.x = 150
     }
 }
