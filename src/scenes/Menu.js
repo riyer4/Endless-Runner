@@ -10,6 +10,10 @@ class Menu extends Phaser.Scene {
 
         this.load.image('mainScreen', './assets/mainScreen.png')
 
+        this.load.image('white', './assets/white.png')
+        this.load.image('mint', './assets/mint.png')
+        this.load.image('pink', './assets/pink.png')
+
         this.load.image('AA', './assets/100-paper.png')
         this.load.image('blue', './assets/blue-slipper.png')
         this.load.image('purple', './assets/purple-slipper.png')

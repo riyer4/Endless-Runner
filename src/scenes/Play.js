@@ -3,34 +3,21 @@ class Play extends Phaser.Scene {
         super('playScene')
     }
 
-    preload() {
-
-        //sprite + image loading
-        // ex) this.load.image('rocket', './assets/rocket.png')
-
-        this.load.image('mainScreen', './assets/mainScreen.png')
-
-        this.load.image('AA', './assets/100-paper.png')
-        this.load.image('blue', './assets/blue-slipper.png')
-        this.load.image('purple', './assets/purple-slipper.png')
-        
-
-        this.load.spritesheet('player', './assets/player.png', {
-            frameWidth: 15.75,
-            frameHeight: 16,
-            startFrame: 0,
-            endFrame: 2
-        })
-
-
-
-
-        //audio loading
-        // ex) this.load.audio('sfx-select', './assets/sfx-select.wav')
-
-    }
-
     create() {
+
+
+        this.cameras.main.setBackgroundColor(0x31235c)
+
+        //tile sprite
+
+        this.white = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'white').setOrigin(0, 0).setScale(4)
+        this.mint = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'mint').setOrigin(0, 0).setScale(4)
+        this.pink = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'pink').setOrigin(0, 0).setScale(4)
+
+        
+        this.whiteSpeed = 0.2
+        this.mintSpeed = 0.5
+        this.pinkSpeed = 0.8
 
         //starting place
 
@@ -124,6 +111,11 @@ class Play extends Phaser.Scene {
     }
 
     update() {
+
+        this.white.tilePositionX -= this.whiteSpeed
+        this.mint.tilePositionX -= this.mintSpeed
+        this.pink.tilePositionX -= this.pinkSpeed
+
 
         // hs mods
 
@@ -317,7 +309,7 @@ class Play extends Phaser.Scene {
         let scoreConfig = {
             fontFamily: 'Courier',
             fontSize: '25px',
-            backgroundColor: '#add8e6',
+            backgroundColor: '#008080',
             color: '#000',
             allig: 'right',
             padding: {
